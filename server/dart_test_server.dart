@@ -35,7 +35,7 @@ listenForRequests(_server) {
 }
 
 void handleGet(HttpRequest req) {
-  addCorsHeaders(req.response);
+//  addCorsHeaders(req.response);
   print(req.requestedUri.path);
   if (req.requestedUri.path == '/getresponse') {
     req.response.statusCode = HttpStatus.OK;
@@ -46,7 +46,7 @@ void handleGet(HttpRequest req) {
 
 void defaultHandler(HttpRequest req) {
   HttpResponse res = req.response;
-  addCorsHeaders(res);
+//  addCorsHeaders(res);
   res.statusCode = HttpStatus.NOT_FOUND;
   res.write('Not found: ${req.method}, ${req.uri.path}');
   res.close();
@@ -54,7 +54,7 @@ void defaultHandler(HttpRequest req) {
 
 void handleOptions(HttpRequest req) {
   HttpResponse res = req.response;
-  addCorsHeaders(res);
+//  addCorsHeaders(res);
   print('${req.method}: ${req.uri.path}');
   res.statusCode = HttpStatus.NO_CONTENT;
   res.close();
