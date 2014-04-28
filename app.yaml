@@ -8,7 +8,7 @@ framework: dart
 handlers:
 - url: /getresponse
   match: exact
-  script: dart_test_server.dart
+  script: server.dart
 
 # Static content
 - url: /
