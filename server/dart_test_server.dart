@@ -7,32 +7,38 @@
 
 import 'dart:io';
 
-void main() {
-  var port = int.parse(Platform.environment['PORT']);
-//  HttpServer.bind(InternetAddress.LOOPBACK_IP_V4, 4042)
-  HttpServer.bind('127.0.0.1', port)
-      .then(listenForRequests)
-      .catchError((e) => print('hello: ${e.toString()}'));
-}
-
-listenForRequests(_server) {
-  print('Listening on port: ${_server.port}');
-  _server.listen((HttpRequest request) {
-    switch (request.method) {
-      case 'GET':
-        handleGet(request);
-        break;
-      case 'OPTION':
-        handleOptions(request);
-        break;
-      default:
-        defaultHandler(request);
-        break;
-    }
-  },
-  onDone: () => print('No more requests.'),
-  onError: (e ) => print(e.toString()));
-}
+/*
+ * This part is better to let DartVoid autogenerate for you, but if you want to
+ * use this code instead you should name the file server.dart and make sure to 
+ * set some value for the "framework" paramter in app.yaml (other than vane) to 
+ * make sure that it runs your file and not autogenerates a new one.
+ */
+//void main() {
+//  var port = int.parse(Platform.environment['PORT']);
+////  HttpServer.bind(InternetAddress.LOOPBACK_IP_V4, 4042)
+//  HttpServer.bind('127.0.0.1', port)
+//      .then(listenForRequests)
+//      .catchError((e) => print('hello: ${e.toString()}'));
+//}
+//
+//listenForRequests(_server) {
+//  print('Listening on port: ${_server.port}');
+//  _server.listen((HttpRequest request) {
+//    switch (request.method) {
+//      case 'GET':
+//        handleGet(request);
+//        break;
+//      case 'OPTION':
+//        handleOptions(request);
+//        break;
+//      default:
+//        defaultHandler(request);
+//        break;
+//    }
+//  },
+//  onDone: () => print('No more requests.'),
+//  onError: (e ) => print(e.toString()));
+//}
 
 void handleGet(HttpRequest req) {
 //  addCorsHeaders(req.response);
@@ -44,13 +50,16 @@ void handleGet(HttpRequest req) {
   req.response.close();
 }
 
-void defaultHandler(HttpRequest req) {
-  HttpResponse res = req.response;
-//  addCorsHeaders(res);
-  res.statusCode = HttpStatus.NOT_FOUND;
-  res.write('Not found: ${req.method}, ${req.uri.path}');
-  res.close();
-}
+/* This one is not really needed since Nginx will give a not found if there are
+ */
+// not matching handlers
+//void defaultHandler(HttpRequest req) {
+//  HttpResponse res = req.response;
+////  addCorsHeaders(res);
+//  res.statusCode = HttpStatus.NOT_FOUND;
+//  res.write('Not found: ${req.method}, ${req.uri.path}');
+//  res.close();
+//}
 
 void handleOptions(HttpRequest req) {
   HttpResponse res = req.response;
@@ -66,3 +75,4 @@ void addCorsHeaders(HttpResponse res) {
   res.headers.add('Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept');
 }
+

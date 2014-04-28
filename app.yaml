@@ -3,14 +3,33 @@ version: 1
 deploy: true
 pub: true
 dart2js: true
-framework: dart
 
 handlers:
 - url: /getresponse
   match: exact
+  method: GET
   script: dart_test_server.dart
+  function: handleGet
 
-# Static content
+- url: /getresponse
+  match: exact
+  method: OPTION
+  script: dart_test_server.dart
+  function: handleOptions  
+  
+# This is a shorter version of the same settings, just a shorter way to write it
+#- url: /getresponse
+#  match: exact
+#  function: GET:dart_test_server.dart:handleGet  
+#- url: /getresponse
+#  match: exact
+#  function: OPTION:dart_test_server.dart:handleOptions
+
+# Static content, this will be served by Nginx, "web" will point to the directory
+# "client/web", static content can only be served from client dir, never from 
+# root or the server dir. 
 - url: /
   match: postregex
   static_dir: web
+  
+  
