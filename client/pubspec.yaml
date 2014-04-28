@@ -1,4 +1,4 @@
-name: dart_test_server
-description: A sample command-line application
-#dev_dependencies:
-#  unittest: any
+name: dart_test_client
+description: A sample application
+dependencies:
+  browser: '>=0.10.0+2 <0.11.0'
