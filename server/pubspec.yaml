@@ -1,4 +1,4 @@
 name: dart_test_server
 description: A sample command-line application
-#dev_dependencies:
-#  unittest: any
+dependencies:
+  logging: any
